@@ -20,6 +20,7 @@ char* solution(const char* my_string, int n) {
     return answer;
 }
 ```
+```
 #include <stdio.h>
 #define LEN_INPUT 1000001
 
