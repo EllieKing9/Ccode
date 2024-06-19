@@ -22,6 +22,35 @@ char* solution(const char* my_string, int n) {
     return answer;
 }
 ```
+문자열 정렬하기 숫자
+```
+int* solution(const char* my_string) {
+    int totCnt = 0;
+    int* answer = (int*)malloc(sizeof(int) * strlen(my_string));
+    
+    for(int i = 0, j = 0; i < strlen(my_string); i++) {
+        if(my_string[i] >= '0' && my_string[i] <= '9') {
+            answer[j] = my_string[i] - 48;
+            totCnt = totCnt + 1;
+            ++j;
+        }
+    }
+    printf("totCnt: %d ", totCnt);
+    // int* answer = (int*)malloc(sizeof(int) * totCnt);
+    
+    for(int i = 0; i < totCnt; i++) {
+        for(int j = 0; j < totCnt; j++) {
+            if(answer[i] < answer[j]) {
+                int temp = answer[i];
+                answer[i] = answer[j];
+                answer[j] = temp;
+            }
+        }
+    }
+    // return 값은 malloc 등 동적 할당을 사용해주세요. 할당 길이는 상황에 맞게 변경해주세요.
+    return answer;
+}
+```
 문자열 기본
 ```
 #include <stdio.h>
