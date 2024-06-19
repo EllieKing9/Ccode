@@ -57,6 +57,7 @@ int main(void) {
     return 0;
 }
 ```
+DFS
 ```
 #include <stdlib.h>
 #define MAX 4
