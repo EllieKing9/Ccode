@@ -57,3 +57,28 @@ int main(void) {
     return 0;
 }
 ```
+```
+#include <stdlib.h>
+#define MAX 4
+
+int visited[MAX] = {0};
+int graph[MAX][MAX] = {
+    {0,1,1,0},
+    {1,0,0,1},
+    {1,0,0,0},
+    {0,1,0,0}};
+
+void dfs(int v) {
+    visited[v] = 1;
+    for(int i = 0; i < MAX; i++) {
+        if(graph[v][i] == 1 && !visited[i]) {
+            dfs(i);
+        }
+    }
+}
+
+int main(void) {
+    dfs(0);
+    return 0;
+}
+```
