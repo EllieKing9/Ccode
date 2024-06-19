@@ -1,4 +1,6 @@
 # Ccode
+
+문자열 복사
 ```
 #include <stdio.h>
 #include <stdbool.h>
@@ -20,6 +22,7 @@ char* solution(const char* my_string, int n) {
     return answer;
 }
 ```
+문자열 기본
 ```
 #include <stdio.h>
 #define LEN_INPUT 1000001
@@ -82,4 +85,56 @@ int main(void) {
     dfs(0);
     return 0;
 }
+```
+BFS
+```
+typedef int ELEMENT;
+typedef struct {
+    ELEMENT data[MAX];
+    int front, rear;
+}QUEUE;
+
+void initQueue(QUEUE *q) {
+    q->rear = q->front = 0;
+}
+int isFull(QUEUE *q) {
+    return((q->rear + 1) % MAX_Q == q->front);
+}
+int isEmpty(QUEUE *q) {
+    return(q->front == q->rear);
+}
+void enQueue(QUEUE *q, ELEMENT item) {
+    if(isFull(q)) {
+        return 0;
+    }
+    q->rear = (q->rear + 1) % MAX_Q;
+    q->data[q->rear] = item;
+}
+ELEMENT dequeue(QUEUE *q) {
+    if(isEmpty(q) {
+        exit(1);
+    }
+    q->front = (q->front + 1) % MAX_Q;
+    return q->data[q->front];
+}
+
+void bfs(GRAPH *g, int start) {
+    QUEUE q;
+    initQueue(&q);
+    visited[start] = 1;
+    GRAPH *m = (GRAPH *)malloc(sizeof(GRAPH));
+    m = g;
+    enQueue(&q, start);
+
+    while(!isEmpty(&q)) {
+        int v = deQueue(&q);
+        for(int i = 0; i < MAX; i++) {
+            if(m[v][i] && visited[i]) {
+                visited[i] = 1;
+                enQueue(&q, i);
+            }
+        }
+    }
+}
+```
 ```
