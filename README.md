@@ -1,5 +1,9 @@
 # Ccode
 
+```
+https://blockdmask.tistory.com/391
+```
+
 문자열 복사
 ```
 #include <stdio.h>
