@@ -82,6 +82,46 @@ int main(void) {
     return 0;
 }
 ```
+최빈값구하기
+```
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+// array_len은 배열 array의 길이입니다.
+int solution(int array[], size_t array_len) {
+    int answer = 0;
+    
+    int bestItem = 0;
+    int bestItemCnt = 0;
+    
+    int item = 0;
+    int itemCnt = 0;
+    
+    for(int i = 0; i < array_len; i++) {
+        if(item != array[i]) {
+            itemCnt = 0;
+            
+            for(int j = 0; j < array_len; j++) {
+                if(array[i] == array[j]) {
+                    itemCnt = itemCnt + 1;
+                }
+            }
+            
+            if(itemCnt > bestItemCnt) {
+                bestItemCnt = itemCnt;
+                bestItem = item = array[i];
+            }
+            else if(itemCnt == bestItemCnt) {
+                bestItem = -1;
+            }
+        }
+    }
+    
+    answer = bestItem;
+    return answer;
+}
+```
 문자열 기본
 ```
 #include <stdio.h>
