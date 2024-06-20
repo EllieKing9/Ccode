@@ -196,6 +196,44 @@ int* solution(int prices[], size_t prices_len) {
     return answer;
 }
 ```
+괄호 스택
+```
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+// 파라미터로 주어지는 문자열은 const로 주어집니다. 변경하려면 문자열을 복사해서 사용하세요.
+bool solution(const char* s) {
+    bool answer = true;
+    int *stack = (int *)malloc(sizeof(char) * strlen(s));
+    int top = -1;
+    
+    int len = strlen(s);
+    // printf("%d\n", len);
+    
+    for(int i = 0; i < len; i++) {
+        if(s[i] == '(') {
+            top = top + 1;
+            stack[top] = '(';
+        }
+        else if(s[i] == ')') {
+            if(top == -1) {
+                answer = false;
+                return answer;
+            }
+            else {
+                top = top - 1;
+            }
+        }
+    }
+    
+    if(top >= 0) {
+        answer = false;
+    }
+        
+    return answer;
+}
+```
 DFS
 ```
 #include <stdlib.h>
