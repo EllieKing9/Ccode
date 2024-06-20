@@ -55,6 +55,33 @@ int* solution(const char* my_string) {
     return answer;
 }
 ```
+대소문자 변환
+```
+#include <stdio.h>
+#define LEN_INPUT 10
+
+int main(void) {
+    char s1[LEN_INPUT];
+    scanf("%s", s1);
+
+    for(int i = 0; i < strlen(s1); i++) {
+        if(isupper(s1[i])) {
+            // printf("%c ", s1[i]);
+            s1[i] = tolower(s1[i]);
+            // printf("%c", s1[i]);
+        }
+        else if(islower(s1[i])) {
+            // printf("%c ", s1[i]);
+            s1[i] = toupper(s1[i]);
+            // printf("%c", s1[i]);
+        }
+        // printf("%d ", s1[i]); // +- 32
+    }
+    
+    printf("%s", s1);
+    return 0;
+}
+```
 문자열 기본
 ```
 #include <stdio.h>
@@ -169,5 +196,4 @@ void bfs(GRAPH *g, int start) {
         }
     }
 }
-```
 ```
