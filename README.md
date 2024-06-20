@@ -160,6 +160,42 @@ int main(void) {
     return 0;
 }
 ```
+주식가격 스택
+```
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+// prices_len은 배열 prices의 길이입니다.
+int* solution(int prices[], size_t prices_len) {
+    printf("%d\n", prices_len);
+    
+    int* answer = (int*)malloc(prices_len * sizeof(int));
+    int* stack = (int*)malloc(prices_len * sizeof(int));
+    int top = -1; // 스택의 top 인덱스
+    
+    for (int i = 0; i < prices_len; ++i) {
+        while (top >= 0 && prices[stack[top]] > prices[i]) {
+            // 가격이 떨어지는 시점 계산
+            answer[stack[top]] = i - stack[top];
+            top--; //(1, 3)
+        }
+        // 현재 인덱스 push
+        top = top + 1;
+        stack[top] = i; // (0, 0) (1, 1) (2, 2) - (2, 3)
+    }
+    
+    // 스택에 남아있는 것들 처리 (가격이 떨어지지 않은 기간을 계산할 수 없는 경우)
+    while (top >= 0) {
+        answer[stack[top]] = prices_len - stack[top] - 1;
+        top--;
+    }
+    
+    free(stack);
+    
+    return answer;
+}
+```
 DFS
 ```
 #include <stdlib.h>
