@@ -114,6 +114,62 @@ int* solution(const char* my_string) {
     return answer;
 }
 ```
+정렬 문자열로 변환
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX 5 //최대 5자리 숫자(0 이상 1000 이하)
+
+// int compare(const void *a, const void *b) {
+//     // return *(int *)a - *(int *)b; //작은순서
+//     return *(int *)b - *(int *)a; //큰순서
+// }
+
+int compare(const void *a, const void *b) {
+    char ab[(MAX*2)+1], ba[(MAX*2)+1];
+    sprintf(ab, "%s%s", *(char **)a, *(char **)b);
+    sprintf(ba, "%s%s", *(char **)b, *(char **)a);
+    return strcmp(ba, ab);
+}
+
+int* solution(int numbers[], size_t numbers_len) {
+    char **numbersStr = (char **)malloc(sizeof(char *) * numbers_len);
+
+    for(int i = 0; i < numbers_len; i++) {
+        numbersStr[i] = (char *)malloc(sizeof(char) * MAX);
+        sprintf(numbersStr[i], "%d", numbers[i]);
+        // printf("%d ", numbers[i]);
+    }
+    
+    // qsort(answer, totCnt, sizeof(int), compare);
+    qsort(numbersStr, numbers_len, sizeof(char *), compare);
+    
+    for(int i = 0; i < numbers_len; i++) {
+        printf("%s", numbersStr[i]);
+    }
+    printf("\n");
+
+    char *answer = (char *)malloc((sizeof(char)*numbers_len) + 1);
+    for(int i = 0; i < numbers_len; i++) {
+        strcat(answer,numbersStr[i]);
+    }
+
+    printf("%s\n", answer);
+    // return answer;
+}
+
+int main() {
+    // int numbers[] = {6, 10, 2};
+    int numbers[] = {3, 30, 34, 5, 9, 1000};
+    int numbersSize = sizeof(numbers) / sizeof(numbers[0]);
+    printf("%d\n", numbersSize);
+    solution(numbers, numbersSize);
+
+    return 0;
+}
+```
 대소문자 변환
 ```
 #include <stdio.h>
