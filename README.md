@@ -411,6 +411,58 @@ int main() {
     printf("BEST: %d \n", best);
 }
 ```
+타겟넘버
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
+#define MAX 5
+
+bool visited[MAX];
+int tot = 0;
+
+bool visitNodes(int current, int *value) {
+    if(current == MAX) {
+        tot = 0;
+        printf("방문 순서: ");
+        for (int i = 0; i < MAX; i++) {
+            if(visited[i]) {
+                tot = tot + value[i];
+                printf("%d(%d) ", i, value[i]);
+            }
+        }
+
+        if(tot == 3) {
+            printf("total: %d(true) \n", tot); 
+        }
+        else {
+           printf("\n"); 
+        }
+        
+        return true;
+    }
+    
+    visited[current] = true;
+
+    value[current] = -value[current];
+    visitNodes(current + 1, value);
+
+    value[current] = -value[current];
+    visitNodes(current + 1, value);
+}
+
+int main() {
+    int m[MAX] = {1, 1, 1, 1, 1};
+    
+    for (int i = 0; i < MAX; i++) {
+        visited[i] = false;
+    }
+
+    visitNodes(0, m);
+}
+```
 DFS
 ```
 #include <stdlib.h>
