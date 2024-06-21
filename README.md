@@ -349,6 +349,68 @@ bool solution(const char* s) {
     return answer;
 }
 ```
+재귀함수 모든노드 탐색 경우의 수 마리오 버섯게임
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
+#define MAX 8
+
+bool visited[MAX];
+int pm = 0;
+int tot = 0;
+int best = 0;
+
+bool visitNodes(int current, int *value) {
+    if(current == MAX) {
+        pm = 0;
+        tot = 0;
+        printf("방문 순서: ");
+        for (int i = 0; i < MAX; i++) {
+            if(visited[i]) {
+                if(pm == 0) {
+                    tot = tot + value[i];
+                    pm = 1;
+                }
+                else if(pm == 1) {
+                    tot = tot - value[i];
+                    pm = 0;
+                }
+                printf("%d(%d) ", i, value[i]);
+            }
+        }
+        
+        if(tot > best) {
+            best = tot;
+            printf("total: %d(best) \n", tot);
+        }
+        else {
+            printf("total: %d \n", tot);
+        }
+        
+        return true;
+    }
+    
+    visited[current] = false;
+    visitNodes(current + 1, value);
+
+    visited[current] = true;
+    visitNodes(current + 1, value);
+}
+
+int main() {
+    int m[MAX] = {7, 2, 1, 8, 4, 3, 5, 6};
+    
+    for (int i = 0; i < MAX; i++) {
+        visited[i] = false;
+    }
+
+    visitNodes(0, m);
+    printf("BEST: %d \n", best);
+}
+```
 DFS
 ```
 #include <stdlib.h>
