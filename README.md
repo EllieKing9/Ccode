@@ -26,6 +26,65 @@ char* solution(const char* my_string, int n) {
     return answer;
 }
 ```
+문자열 정렬하기 숫자(qsort)
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int compare(const void *a, const void *b) {
+    // return *(int *)a - *(int *)b; //작은순서
+    return *(int *)b - *(int *)a; //큰순서
+}
+
+int* solution(const char* my_string) {
+    printf("%s\n", my_string);
+    int totCnt = 0;
+    int* temp = (int*)malloc(sizeof(int) * strlen(my_string));
+    
+    for(int i = 0; i < strlen(my_string); i++) {
+        if(my_string[i] >= '0' && my_string[i] <= '9') {
+            temp[totCnt] = my_string[i] - 48;
+            totCnt = totCnt + 1;
+        }
+    }
+    printf("totCnt: %d \n", totCnt);
+    int *answer = (int *)malloc(sizeof(int) * totCnt);
+    memcpy(answer, temp, sizeof(int) * totCnt);
+    free(temp);
+    
+    for(int i = 0; i < totCnt; i++) {
+        printf("%d", answer[i]);
+    }
+    printf("\n");
+
+    qsort(answer, totCnt, sizeof(int), compare);
+    
+    // for(int i = 0; i < totCnt; i++) {
+    //     for(int j = 0; j < totCnt; j++) {
+    //         if(answer[i] < answer[j]) {
+    //             int temp = answer[i];
+    //             answer[i] = answer[j];
+    //             answer[j] = temp;
+    //         }
+    //     }
+    // }
+
+    for(int i = 0; i < totCnt; i++) {
+        printf("%d", answer[i]);
+    }
+    
+    return answer;
+}
+
+int main() {
+    char s1[7] = "hu12392";
+  
+    solution(s1);
+
+    return 0;
+}
+```
 문자열 정렬하기 숫자
 ```
 int* solution(const char* my_string) {
