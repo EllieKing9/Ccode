@@ -3,7 +3,133 @@
 ```
 https://blockdmask.tistory.com/391
 ```
+최종 연습
+```
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
+typedef struct {
+    int number;
+    int index;
+    int distance;
+    int len;
+    int visited;
+} INDEX;
+
+int compare(const INDEX *a, const INDEX *b) {
+    if(a->distance == b->distance) {
+        return (b->number - a->number);
+    }
+    else {
+        return (a->distance - b->distance);    
+    }
+}
+
+int compare2(const int *a, const int *b) {
+    return (*b - *a);
+}
+
+int compare3(const char *a, const char *b) {
+    return (*a - *b);
+}
+
+int compare4(const char *a, const char *b) {
+    char **str1 = a;
+    char **str2 = b;
+    return strcmp(*str1, *str2);
+}
+
+void visitId(int current, INDEX *id) {
+    if(current == id[0].len) {
+        for(int i = 0; i < id[0].len; i++) {
+            if(id[i].visited == 1) {
+                printf("%d(%d) ", id[i].index, id[i].number);
+            }
+        }
+        printf("\n");
+        return;
+    }
+    
+    id[current].visited = 1;
+    visitId(current+1, id);
+    
+    id[current].visited = 0;
+    visitId(current+1, id);
+}
+
+char str[] = {"kjacpgb"};
+char *str2[] = {"fruit", "banana", "apple"};
+
+// numlist_len은 배열 numlist의 길이입니다.
+int* solution(int numlist[], size_t numlist_len, int n) {
+    // return 값은 malloc 등 동적 할당을 사용해주세요. 할당 길이는 상황에 맞게 변경해주세요.
+    int* answer = (int*)malloc(sizeof(int) * numlist_len);
+    
+    int* temp = (int*)malloc(sizeof(int) * numlist_len);
+    memcpy(temp, numlist, sizeof(int) * numlist_len);
+    
+    char *tmpstr = (char *)malloc(sizeof(char) * strlen(str) + 1);
+    memcpy(tmpstr, str, sizeof(char) * strlen(str) + 1);
+    // printf("%s ", tmpstr);
+    // printf("\n");
+    
+    // char** tmpstr2 = (char**)malloc(sizeof(char*));
+    // printf("%s ", str2[0]);
+    // printf("\n");
+    // tmpstr2 = str2;
+    // printf("%s ", tmpstr2[0]);
+    // printf("\n");
+    
+    int len = sizeof(str2) / sizeof(str2[0]);
+    char** tmpstr2 = (char**)malloc(sizeof(char*) * len);
+    for(int i = 0; i < len; i++) {
+        tmpstr2[i] = (char *)malloc(sizeof(char) * strlen(str2[i]) + 1);
+        strcpy(tmpstr2[i], str2[i]);
+        // printf("%s ", str2[i]); printf("\n");
+        // printf("%s ", tmpstr2[i]); printf("\n");
+    }
+    qsort(tmpstr2, len, sizeof(char *), compare4);
+    printf("%s ", tmpstr2[0]); printf("%s ", tmpstr2[1]); printf("%s ", tmpstr2[2]); printf("\n");
+    
+    INDEX *id = (INDEX *)malloc(sizeof(INDEX) * numlist_len);
+    
+    for(int i = 0; i < numlist_len; i++) {
+        id[i].number = numlist[i];
+        id[i].index = i;
+        id[i].distance = abs(n - numlist[i]);
+        id[i].len = numlist_len;
+        id[i].visited = 0;
+    }
+    // for(int i = 0; i < numlist_len; i++) {
+    //     printf("(%d-%d) ", id[i].index, id[i].distance);
+    // } printf("\n");
+    
+    visitId(0, id);
+    
+    qsort(id, numlist_len, sizeof(INDEX), compare);
+    // for(int i = 0; i < numlist_len; i++) {
+    //     printf("(%d-%d) ", id[i].index, id[i].distance);
+    // } printf("\n");
+    
+    qsort(temp, numlist_len, sizeof(int), compare2);
+    // for(int i = 0; i < numlist_len; i++) {
+    //     printf("%d ", temp[i]);
+    // } printf("\n");
+    
+    qsort(tmpstr, strlen(str), sizeof(char), compare3);
+    // printf("%s ", tmpstr);
+    // printf("\n");
+    
+    
+    // for(int i = 0; i < numlist_len; i++) {
+    //     answer[i] = id[i].number;   
+    // }
+    
+    free(temp);
+    return answer;
+}
+```
 문자열 복사
 ```
 #include <stdio.h>
